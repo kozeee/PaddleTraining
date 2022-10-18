@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Inline Checkout</h1>
+
+
+    <div class="checkout-container"></div>
+
+    <button class="paddle_download" data-download-url="http://mysite.com/download.zip"
+        data-vendor-name="My Vendor Name">Download</button>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script type="text/javascript">
+        Paddle.Environment.set('sandbox');
+        Paddle.Setup({
+            vendor: 7617
+        });
+    </script>
+    <script>
+        Paddle.Checkout.open({
+            method: 'inline',
+            product: 36750,
+            frameTarget: 'checkout-container',
+            frameInitialHeight: 500,
+            frameStyle: 'width:100%; min-width:312px; background-color: white; border: none;'
+        });
+
+        Paddle.Audience.Popup({
+            vendorName: 'Your Company Name',
+            triggers: {
+                exitIntent: false,
+                scrollDepth: 1,
+                timed: false
+            },
+            strings: {
+                heading: "Stay up to date!",
+                subHeading: "Never miss a new feature, release, announcement or deal. Sign up to our newsletter today!",
+                cta: "Sign me up!"
+            }
+        });
+    </script>
+</body>
+
+</html>

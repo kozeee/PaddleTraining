@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localized pricing and Pricing API</title>
+</head>
+
+<body>
+    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="36751">$0</span>!</p>
+    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="36750">$1</span>!</p>
+    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="33429">$2</span>!</p>
+
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script>
+        Paddle.Environment.set('sandbox');
+        Paddle.Setup({ vendor: 7617 });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Details</title>
+</head>
+
+<body>
+    <h1>Thanks for your purchase</h1>
+    <h2>Order details:</h2>
+    <p id="license"></p>
+    <p id="receipt"></p>
+    <p id="email"></p>
+    <p id="cost"></p>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script>
+        const $ = (x) => document.getElementById(x);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const checkout = urlParams.get('checkoutid')
+        if (checkout != null) {
+            Paddle.Environment.set('sandbox');
+            let order = Paddle.Order.details(checkout, function (data) {
+                console.log(data)
+                $('license').innerText = data.lockers[0].download
+                $('receipt').innerText = data.order.receipt_url
+                $('email').innerText = data.order.customer.email
+                $('cost').innerText = data.order.formatted_total
+            })
+
+
+        }
+        async function loadDetails() {
+            let req = await axios.get('https://sandbox-checkout.paddle.com/api/1.0/order?checkout_id=' + checkout)
+            console.log(req)
+        }
+
+    </script>
+</body>
+
+</html>
