@@ -9,10 +9,7 @@
 </head>
 
 <body>
-
-    <h1> Normal HTML Checkout</h1>
-    <a id="checkoutLink" href="#!" class="paddle_button" data-product="33429">Buy Now!</a>
-
+ 
     <h1> Pre-checkout Form</h1>
     <form>
         <select name="country" id="country">
@@ -21,34 +18,21 @@
         <input type="email" id="email" placeholder="enter your email address">
         <input type="text" id="postcode" placeholder="enter your postcode">
     </form>
-    <button onclick="flexibleCheckout()">Checkout Now</button>
+    <button onclick="flexibleCheckout()">Checkout Now</button> 
 
-    <h1>Inline Checkout Form</h1>
-    <div class="checkout-container"></div>
-
-
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+
     <script type="text/javascript">
         const $ = (x) => document.getElementById(x);
+        
         countryPOP()
         Paddle.Environment.set('sandbox');
         Paddle.Setup({
-            vendor: 7617, eventCallback: function (data) {
-                if (data.event === 'Checkout.Loaded') {
-                    console.log(data.eventData.user.country)
-                }
-                if (data.event === 'Checkout.Location.Submit') {
-                    console.log(data.eventData.user.country)
-                }
-                if (data.event === 'Checkout.Language.Change') {
-                    console.log(data.eventData.new_language)
-                }
-            }
+            vendor: 7617
         });
         // sets coupon for HTML button
-        function couponSet() {
-            $('checkoutLink').setAttribute('data-coupon', 'PADDLEFUN')
-        }
+        
 
         function flexibleCheckout() {
             let email = $('email').value
@@ -321,15 +305,7 @@
             }
         }
     </script>
-    <script>
-        Paddle.Checkout.open({
-            method: 'inline',
-            product: 36750,
-            frameTarget: 'checkout-countainer',
-            frameInitialHeight: 500,
-            frameStyle: 'width:100%; min-width:312px; background-color: transparent; border: none;'
-        });
-    </script>
+    
 </body>
 
 </html>
