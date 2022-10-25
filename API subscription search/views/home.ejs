@@ -34,7 +34,7 @@
                 </tr>
 
             <tbody>
-                <% subs.forEach(subs=>{ %>
+                <% if (subs !=null){subs.forEach(subs=>{ %>
                     <tr>
                         <td>
                             <%= subs.id %>
@@ -48,7 +48,7 @@
                             </a>
                         </td>
                     </tr>
-                    <% }) %>
+                    <% })} %>
             </tbody>
             </thead>
 
