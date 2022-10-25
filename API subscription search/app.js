@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
 
         res.render('home', { subs: fetchSub.data.response })
     }
-    else { res.render('home.ejs') }
+    else { res.render('home.ejs', { subs: null }) }
 })
 
 
