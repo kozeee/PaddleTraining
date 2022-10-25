@@ -9,16 +9,29 @@
 </head>
 
 <body>
-    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="36751">$0</span>!</p>
-    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="36750">$1</span>!</p>
-    <p>Grab your copy of My Product for just <span class="paddle-gross" data-product="33429">$2</span>!</p>
+    <p id="0"></p>
+    <p id="1"></p>
+    <p id="2"></p>
 
     <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <script>
         Paddle.Environment.set('sandbox');
         Paddle.Setup({ vendor: 7617 });
 
-        // add pricing api aaron mentioned jquery can avoid cors issues?
+        $.ajax({
+            url: 'https://sandbox-checkout.paddle.com/api/2.0/prices',
+            dataType: 'jsonp',
+            data: {
+                product_ids: "36751,36750,33429"
+            },
+            success: function (data) {
+                for (product in data.response.products) {
+                    let item = document.getElementById(product)
+                    item.innerText = data.response.products[product].product_title + " $" + data.response.products[product].price.gross
+                }
+            }
+        });
     </script>
 </body>
 
