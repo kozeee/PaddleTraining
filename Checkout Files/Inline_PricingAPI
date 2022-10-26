@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Inline Checkout</h1>
+    <h2 id="productName"></h2>
+    <p id="sub-total"></p>
+    <p id="tax"></p>
+    <p id="total"></p>
+
+
+    <div class="checkout-container"></div>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        Paddle.Environment.set('sandbox');
+        Paddle.Setup({
+            vendor: 7617
+        });
+    </script>
+    <script>
+        $.ajax({
+            url: 'https://sandbox-checkout.paddle.com/api/2.0/prices',
+            dataType: 'jsonp',
+            data: {
+                product_ids: "36750"
+            },
+            success: function (data) {
+                console.log(data)
+                document.getElementById('productName').innerText = data.response.products[0].product_title
+                document.getElementById('sub-total').innerText = "sub-total: $" + data.response.products[0].price.net
+                document.getElementById('tax').innerText = "tax: $" + data.response.products[0].price.tax
+                document.getElementById('total').innerText = "total: $" + data.response.products[0].price.gross
+            }
+        });
+
+
+        Paddle.Checkout.open({
+            method: 'inline',
+            product: 36750,
+            frameTarget: 'checkout-container',
+            frameInitialHeight: 500,
+            frameStyle: 'width:100%; min-width:312px; background-color: white; border: none;'
+        });
+        Paddle.Audience.Popup({
+            vendorName: 'Your Company Name',
+            triggers: {
+                exitIntent: false,
+                scrollDepth: 1,
+                timed: false
+            },
+            strings: {
+                heading: "Stay up to date!",
+                subHeading: "Never miss a new feature, release, announcement or deal. Sign up to our newsletter today!",
+                cta: "Sign me up!"
+            }
+        });
+
+    </script>
+</body>
+s
+
+</html>
